@@ -25,7 +25,7 @@ public class Tabuleiro {
         int linhaRandom, colunaRandom;
         char navio = 'N';
         for (int i = 0; i < quantidadeNavios; i++) {
-            //a cada passada gera um uma posição aleatória nota
+            //a cada passada gera uma posição aleatória para preencher uma coordenada na matriz
             linhaRandom = random.nextInt(9);
             colunaRandom = random.nextInt(9);
 
@@ -37,6 +37,9 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Apenas para testar se está preenchendo corretamente
+     */
     public void printTabuleiro() {
         System.out.println(SEPARADOR);
         for (int linha = 0; linha < tamLinha; linha++) {
