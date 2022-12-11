@@ -6,7 +6,7 @@ public class Tabuleiro {
     final String SEPARADOR = "\n------------------------------------------------------------";
     private int tamLinha = 10;
     private int tamColuna = 10;
-    private int quantidadeNavios = 8;
+    private int quantidadeNavios = 10;
     private char[][] tabuleiro = new char[tamLinha][tamColuna];
 
 
