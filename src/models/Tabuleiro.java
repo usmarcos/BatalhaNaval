@@ -9,13 +9,16 @@ public class Tabuleiro {
     private final String cor_amarela = "\u001B[33m";
     private final String cor_azul = "\u001B[34m";
     private final String cor_roxa = "\u001B[35m";
+    private final String cor_vermelho = "\u001B[31m";
+    private final String cor_ciano = "\u001B[36m";
+    private final String cor_verde = "\u001B[32m";
     private final String separador = "\n------------------------------------------------------------------";
     private final String guia_superior = "     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | ";
     private final String titulo = "                         JOGADOR ";
-    private static int tamLinha = 10;
-    private static int tamColuna = 10;
+    private int tamLinha = 10;
+    private int tamColuna = 10;
     private int quantidadeNavios = 10;
-    protected static char[][] tabuleiro = new char[tamLinha][tamColuna];
+    protected char[][] tabuleiro = new char[tamLinha][tamColuna];
 
 
     /**
@@ -44,76 +47,78 @@ public class Tabuleiro {
     }
 
     /**
-     * Retorna tabuleiro para comparar e identificar se existem navios iguais na mesma posição.
-     */
-    public char[][] getTabuleuiro() {
-        return tabuleiro;
-    }
-
-
-    /**
      * Método responsável por enviar a jogada convertendo o char enviado para int por conta da posição da matriz.
+     * E validar as jogadas passando o tabuleiro do inimmigo.
+     * Se tiver uma posição já jogada anteriormente vai retornar exceção
      */
-    public void setJogada(char linha, int coluna, char[][] humano, char[][] maquina) {
+    public void setJogada(char linha, int coluna, Tabuleiro inimigo) {
         //converte a coluna char para um INT para validar as posições da matriz
         switch (linha) {
             case 'A':
-                linha = (char) 0;
+                linha = (int) 0;
                 break;
             case 'B':
-                linha = (char) 1;
+                linha = (int) 1;
                 break;
             case 'C':
-                linha = (char) 2;
+                linha = (int) 2;
                 break;
             case 'D':
-                linha = (char) 3;
+                linha = (int) 3;
                 break;
             case 'E':
-                linha = (char) 4;
+                linha = (int) 4;
                 break;
             case 'F':
-                linha = (char) 5;
+                linha = (int) 5;
                 break;
             case 'G':
-                linha = (char) 6;
+                linha = (int) 6;
                 break;
             case 'H':
-                linha = (char) 7;
+                linha = (int) 7;
                 break;
             case 'I':
-                linha = (char) 8;
+                linha = (int) 8;
                 break;
             case 'J':
-                linha = (char) 9;
+                linha = (int) 9;
                 break;
         }
+        //valida se jogada já foi feita e se tiver sido vai retornar uma exceção
+        if (tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao()
+                || tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA.getMarcacao()
+                || tabuleiro[linha][coluna] == Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao()
+                || tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao()) {
+            throw new RuntimeException();
+        }
         //enviando linha primeiro e depois coluna, pois é assim que uma matriz funciona, primeiro coluna e depois linha.
-        validaTiro(linha, coluna,humano, maquina);
+        validaTiro(linha, coluna, inimigo);
     }
 
     /**
      * Atirar: (tiro certeiro, água, certeiro com navio posicionado e tiro na água com navio posicionado)
      */
-    private void validaTiro(int posicaoLinha, int posicaoColuna,char[][] tabuleiroJogadorAtual, char[][] tabuleiroJogadorInimigo) {
+    private void validaTiro(int posicaoLinha, int posicaoColuna, Tabuleiro inimigo) {
         //validações dos tiros e preenchimento do campo na posição
-        if (tabuleiro[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
-            //se no tiro tiver um navio posicionado ele verifica se tem um navio posicionado nesta posição no tabuleiro do inimigo
-            if (tabuleiroJogadorAtual[posicaoLinha][posicaoColuna] == tabuleiroJogadorInimigo[posicaoLinha][posicaoColuna]){
+        if (inimigo.tabuleiro[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
+            //se no tiro tiver um navio posicionado ele verifica se tem um navio posicionado nesta posição no tabuleiro do inimigo com relação ao do atual
+            if (inimigo.tabuleiro[posicaoLinha][posicaoColuna] == tabuleiro[posicaoLinha][posicaoColuna]) {
                 //se tiver o mesmo preenchimento ele armazena marcação correspondente
-                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
-            }else {
+                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao();
+            } else {
                 //se não tiver ele armazena o tiro
                 tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_CERTEIRO.getMarcacao();
             }
             //nesse caso se o jogador der um tiro ele verifica se no tabuleiro inimigo foi tiro na água
-        } else if (tabuleiro[posicaoLinha][posicaoColuna] == Character.MIN_VALUE) {
+        } else if (inimigo.tabuleiro[posicaoLinha][posicaoColuna] == Character.MIN_VALUE) {
             //se no tabuleiro do jogador atual tiver um navio posicionado ele coloca o n minúsculo
-            if(tabuleiroJogadorAtual[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()){
+            if (tabuleiro[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
                 tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao();
+            } else {
+                //se não tiver navio posicionado vira tiro na água
+                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA.getMarcacao();
             }
-            //se não tiver navio posicionado vira tiro na água
-            tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA.getMarcacao();
         }
     }
     /**
@@ -164,6 +169,14 @@ public class Tabuleiro {
                     System.out.print("   ");
                 } else if (tabuleiro[linha][coluna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
                     System.out.print(cor_amarela + " " + tabuleiro[linha][coluna] + " " + reset);
+                } else if (tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao()) {
+                    System.out.print(cor_vermelho + " " + tabuleiro[linha][coluna] + " " + reset);
+                } else if (tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA.getMarcacao()) {
+                    System.out.print(cor_ciano + " " + tabuleiro[linha][coluna] + " " + reset);
+                } else if (tabuleiro[linha][coluna] == Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao()) {
+                    System.out.print(cor_vermelho + " " + tabuleiro[linha][coluna] + " " + reset);
+                } else if (tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao()) {
+                    System.out.print(cor_verde + " " + tabuleiro[linha][coluna] + " " + reset);
                 } else {
                     System.out.print(" " + tabuleiro[linha][coluna] + " ");
                 }

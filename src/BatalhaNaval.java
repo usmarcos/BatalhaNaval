@@ -4,8 +4,6 @@ import models.Jogador.JogadaMaquina;
 import models.Tabuleiro;
 import utils.LeitorTeclado;
 
-import java.util.Scanner;
-
 public class BatalhaNaval {
     /**
      * Primeiro deve-se inserir a LINHA preenchendo com LETRAS de A a I
@@ -20,26 +18,29 @@ public class BatalhaNaval {
         /**
          * Lista do que falta implementar:
          * 1 - Falta definir como funcionará o menu, se terá sequência e criar o método.
-         * 2 - Falta lógica para identificar se foi tiro na água com navio posicionado (n) N pode virar n se no seu
-         * tabuleiro tiver um navio seu e na mesma posição tiver um do inimigo. Então se nessa posição tiver um navio inimigo
-         * vira X e se for tiro na água vira n.
-         * 3 - Falta tratar as excessões caso digitado mais de uma letra ou mais de um número.
-         * 4 - Falta criar a lógia que dirá quem é o vencedor
-         * 5 - Lembrar que no final do jogo deve imprimir o vencedor e os dois tabuleiros (por isso já criei o envio do Enum
+         * 2 - Falta tratar as excessões caso digitado mais de uma letra ou mais de um número.
+         * 3 - Falta criar a lógia que dirá quem é o vencedor
+         * 4 - Lembrar que no final do jogo deve imprimir o vencedor e os dois tabuleiros (por isso já criei o envio do Enum
          * para informar qual o jogador do objeto
          */
 
-        // teste
+        /**
+         * Sempre que for enviar uma jogada envie também na chamada o tabuleiro do objeto do inimigo, seja
+         * o humano ou computador para ele poder fazer as devidas comparações
+         */
+
+//        // teste
 //        Tabuleiro humano = new Tabuleiro();
 //        Tabuleiro computador = new Tabuleiro();
 //
 //        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+//        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
 //
 //        System.out.println("Tiro");
-//        humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna());
+//        humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), computador.getTabuleuiro());
 //        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da última jogada
 //        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-//        computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna());
+//        computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna(), humano.getTabuleuiro());
 //        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
 
         boolean ligado = true;
@@ -58,11 +59,13 @@ public class BatalhaNaval {
                 Tabuleiro computador = new Tabuleiro();
                 System.out.println("Este será o seu tabuleiro");
                 boolean loop = true;
-                while (loop){
+                while (loop) {
+                    //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
                     humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                    //apenas para validar as jogadas
                     computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-                    humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), humano.getTabuleuiro(), computador.getTabuleuiro());
+                    //Jogada humano
+                    jogadaHumano(humano, computador);
+                    jogadaMaquina(computador,humano);
                 }
 
                 break;
@@ -77,5 +80,21 @@ public class BatalhaNaval {
         System.out.println("0 - Para Encerrar.");
         System.out.println("1 - Iniciar um novo jogo escolhendo as posições dos navios.");
         System.out.println("2 - Iniciar um novo jogo com as posições geradas automaticamente.");
+    }
+    private static void jogadaHumano(Tabuleiro jogador, Tabuleiro inimigo){
+        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada (MELHORAR ESSA LÓGICA)
+        try {
+            jogador.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), inimigo);
+        } catch (Exception e) {
+            System.out.println("Posição já jogada anteriormente, insira uma nova posição");
+            jogadaHumano(jogador, inimigo);
+        }
+    }    private static void jogadaMaquina(Tabuleiro jogador, Tabuleiro inimigo){
+        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada até mesmo pra máquina (MELHORAR ESSA LÓGICA)
+        try {
+            jogador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna(), inimigo);
+        } catch (Exception e) {
+            jogadaHumano(jogador, inimigo);
+        }
     }
 }
