@@ -17,7 +17,9 @@ public class BatalhaNaval {
         /**
          * Lista do que falta implementar:
          * 1 - Falta definir como funcionará o menu, se terá sequência e criar o método.
-         * 2 - Falta lógica para identificar se foi tiro na água com navio posicionado (n) (não entendi como funcionará ainda)
+         * 2 - Falta lógica para identificar se foi tiro na água com navio posicionado (n) N pode virar n se no seu
+         * tabuleiro tiver um navio seu e na mesma posição tiver um do inimigo. Então se nessa posição tiver um navio inimigo
+         * vira X e se for tiro na água vira n.
          * 3 - Falta tratar as excessões caso digitado mais de uma letra ou mais de um número.
          * 4 - Falta criar a lógia que dirá quem é o vencedor
          * 5 - Lembrar que no final do jogo deve imprimir o vencedor e os dois tabuleiros (por isso já criei o envio do Enum
@@ -32,7 +34,7 @@ public class BatalhaNaval {
 
         System.out.println("Tiro");
         humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna());
-        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da ultima jogada
+        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da última jogada
         humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
         computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna());
         computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
