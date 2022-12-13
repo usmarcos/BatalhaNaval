@@ -21,22 +21,22 @@ Os tipos de navios são: porta-aviões (5 quadrados adjacentes em forma de T),
 os submarinos (1 quadrado apenas), barcos de dois, três e quatro canos.
 Numa das variações deste jogo, as grelhas são de dimensão 10x10, e o
 número de navios são: 1, 4, 3, 2, 1, respectivamente.”</p>
-• Ao final do jogo, devemos indicar o vencedor e imprimir os dois
+<p>• Ao final do jogo, devemos indicar o vencedor e imprimir os dois
 tabuleiros.
-• Em cada turno, a situação atual do tabuleiro do jogador deverá ser
+<p>• Em cada turno, a situação atual do tabuleiro do jogador deverá ser
 impressa na tela de acordo com o modelo a seguir:
 
 Agora que todos conhecemos a definição do jogo, o desafio consiste em
 implementar esse jogo em um programa Java, mas para facilitar um pouco,
 vamos alterar levemente as especificações do jogo:
-• Em nossa versão, teremos apenas navios do tipo submarino (1 quadrado).
-• Cada jogador deverá posicionar em sua grelha dez submarinos.
-• O programa aceitará apenas um jogador, pois o oponente será o computador.
-• Para não precisarmos utilizar cores no terminal vamos usar as marcações:
-. Navio posicionado N (ene maiúsculo)
-. Tiro certeiro * (asterisco)
-. Tiro na água – (traço)
-. Tiro certeiro com navio posicionado X (xis maiúsculo)
-. Tiro na água com navio posicionado n (ene minúsculo)
+<p>• Em nossa versão, teremos apenas navios do tipo submarino (1 quadrado).
+<p>• Cada jogador deverá posicionar em sua grelha dez submarinos.
+<p>• O programa aceitará apenas um jogador, pois o oponente será o computador.
+<p>• Para não precisarmos utilizar cores no terminal vamos usar as marcações:
+<p>. Navio posicionado N (ene maiúsculo)
+<p>. Tiro certeiro * (asterisco)
+<p>. Tiro na água – (traço)
+<p>. Tiro certeiro com navio posicionado X (xis maiúsculo)
+<p>. Tiro na água com navio posicionado n (ene minúsculo)
 Desafio: Batalha Naval
-• Durante a partida o programa exibirá apenas a situação atual do jogador.
+<p>• Durante a partida o programa exibirá apenas a situação atual do jogador.
