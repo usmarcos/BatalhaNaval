@@ -2,6 +2,9 @@ import enumeradores.Jogador;
 import models.Jogador.JogadaHumano;
 import models.Jogador.JogadaMaquina;
 import models.Tabuleiro;
+import utils.LeitorTeclado;
+
+import java.util.Scanner;
 
 public class BatalhaNaval {
     /**
@@ -27,18 +30,52 @@ public class BatalhaNaval {
          */
 
         // teste
-        Tabuleiro humano = new Tabuleiro();
-        Tabuleiro computador = new Tabuleiro();
+//        Tabuleiro humano = new Tabuleiro();
+//        Tabuleiro computador = new Tabuleiro();
+//
+//        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+//
+//        System.out.println("Tiro");
+//        humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna());
+//        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da última jogada
+//        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+//        computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna());
+//        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
 
-        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+        boolean ligado = true;
+        menu();
+        int opcao = LeitorTeclado.getNumero("Digite uma das opções: ");
+        switch (opcao){
+            case 0:
+                System.out.println("O programa será finalizado.");
+                ligado = false;
+                break;
+            case 1:
+                //fazer depois
+                break;
+            case 2:
+                Tabuleiro humano = new Tabuleiro();
+                Tabuleiro computador = new Tabuleiro();
+                System.out.println("Este será o seu tabuleiro");
+                boolean loop = true;
+                while (loop){
+                    humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+                    //apenas para validar as jogadas
+                    computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
+                    humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), humano.getTabuleuiro(), computador.getTabuleuiro());
+                }
 
-        System.out.println("Tiro");
-        humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna());
-        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da última jogada
-        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-        computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna());
-        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
+                break;
+            default:
+                System.out.println("Opação inválida. Tente novamente.");
+                break;
+        }
+    }
 
-
+    private static void menu(){
+        System.out.println("Escolha uma das opções abaixo.");
+        System.out.println("0 - Para Encerrar.");
+        System.out.println("1 - Iniciar um novo jogo escolhendo as posições dos navios.");
+        System.out.println("2 - Iniciar um novo jogo com as posições geradas automaticamente.");
     }
 }
