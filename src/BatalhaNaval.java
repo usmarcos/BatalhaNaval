@@ -32,6 +32,7 @@ public class BatalhaNaval {
 
         System.out.println("Tiro");
         humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna());
+        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da ultima jogada
         humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
         computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna());
         computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
