@@ -1,14 +1,17 @@
 package models;
 
+import enumeradores.Marcacoes;
+
 import java.util.Random;
 
 public class Tabuleiro {
-    public static final String RESET = "\u001B[0m";
-    public static final String COR_AMARELA = "\u001B[33m";
-    public static final String COR_AZUL = "\u001B[34m";
-    public static final String COR_ROXA = "\u001B[35m";
-    final String SEPARADOR = "\n------------------------------------------------------------------";
-    final String GUIA_SUPERIOR = "     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | ";
+    private final String reset = "\u001B[0m";
+    private final String cor_amarela = "\u001B[33m";
+    private final String cor_azul = "\u001B[34m";
+    private final String cor_roxa = "\u001B[35m";
+    private final String separador = "\n------------------------------------------------------------------";
+    private final String guia_superior = "     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | ";
+    private final String titulo = "                         JOGADOR ";
     private static int tamLinha = 10;
     private static int tamColuna = 10;
     private int quantidadeNavios = 10;
@@ -41,6 +44,9 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Método responsável por enviar a jogada convertendo o char enviado para int por conta da posição da matriz.
+     */
     public void setJogada(char linha, int coluna) {
         //converte a coluna char para um INT para validar as posições da matriz
         switch (linha) {
@@ -88,6 +94,7 @@ public class Tabuleiro {
             tabuleiro[poiscaoLinha][posicaoColuna] = Marcacoes.TIRO_CERTEIRO.getMarcacao();
         } else if (tabuleiro[poiscaoLinha][posicaoColuna] == Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao()) {
             tabuleiro[poiscaoLinha][posicaoColuna] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
+            //falta lógica para identificar se foi tiro na água com navio posicionado
         } else if (tabuleiro[poiscaoLinha][posicaoColuna] == Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao()) {
             tabuleiro[poiscaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao();
         } else {
@@ -97,45 +104,45 @@ public class Tabuleiro {
     }
 
     /**
-     * Imprime o tabuleiro em tela
+     * Imprime o tabuleiro em tela e deve ser enviado o enum do jogador correspondente ao objeto
      */
-    public void printTabuleiro() {
-        System.out.println(SEPARADOR);
-        System.out.print(COR_ROXA + "                            JOGADOR" + RESET);
-        System.out.println(SEPARADOR);
-        System.out.print(COR_AZUL + GUIA_SUPERIOR + RESET);
-        System.out.println(SEPARADOR);
+    public void toString(String jogador) {
+        System.out.println(separador);
+        System.out.print(cor_roxa + titulo + jogador + reset);
+        System.out.println(separador);
+        System.out.print(cor_azul + guia_superior + reset);
+        System.out.println(separador);
         for (int linha = 0; linha < tabuleiro.length; linha++) {
             switch (linha) {
                 case 0:
-                    System.out.print(COR_AZUL + "  A  " + RESET);
+                    System.out.print(cor_azul + "  A  " + reset);
                     break;
                 case 1:
-                    System.out.print(COR_AZUL + "  B  " + RESET);
+                    System.out.print(cor_azul + "  B  " + reset);
                     break;
                 case 2:
-                    System.out.print(COR_AZUL + "  C  " + RESET);
+                    System.out.print(cor_azul + "  C  " + reset);
                     break;
                 case 3:
-                    System.out.print(COR_AZUL + "  D  " + RESET);
+                    System.out.print(cor_azul + "  D  " + reset);
                     break;
                 case 4:
-                    System.out.print(COR_AZUL + "  E  " + RESET);
+                    System.out.print(cor_azul + "  E  " + reset);
                     break;
                 case 5:
-                    System.out.print(COR_AZUL + "  F  " + RESET);
+                    System.out.print(cor_azul + "  F  " + reset);
                     break;
                 case 6:
-                    System.out.print(COR_AZUL + "  G  " + RESET);
+                    System.out.print(cor_azul + "  G  " + reset);
                     break;
                 case 7:
-                    System.out.print(COR_AZUL + "  H  " + RESET);
+                    System.out.print(cor_azul + "  H  " + reset);
                     break;
                 case 8:
-                    System.out.print(COR_AZUL + "  I  " + RESET);
+                    System.out.print(cor_azul + "  I  " + reset);
                     break;
                 case 9:
-                    System.out.print(COR_AZUL + "  J  " + RESET);
+                    System.out.print(cor_azul + "  J  " + reset);
                     break;
             }
             System.out.print("| ");
@@ -143,13 +150,13 @@ public class Tabuleiro {
                 if (tabuleiro[linha][coluna] == Character.MIN_VALUE) {
                     System.out.print("   ");
                 } else if (tabuleiro[linha][coluna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
-                    System.out.print(COR_AMARELA + " " + tabuleiro[linha][coluna] + " " + RESET);
+                    System.out.print(cor_amarela + " " + tabuleiro[linha][coluna] + " " + reset);
                 } else {
                     System.out.print(" " + tabuleiro[linha][coluna] + " ");
                 }
                 System.out.print(" | ");
             }
-            System.out.println(SEPARADOR);
+            System.out.println(separador);
         }
     }
 }

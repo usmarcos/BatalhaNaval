@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class JogadaHumano {
     /**
-     * obtem o char com o valor da posição na horizontal
+     * obtém o char com o valor da posição na horizontal
      */
     public static char getLinha() {
         System.out.print("Informe a linha: ");
@@ -13,7 +13,7 @@ public class JogadaHumano {
     }
 
     /**
-     * obtem o char com o valor da posição na vertical
+     * obtém o char com o valor da posição na vertical
      */
     public static int getColuna() {
         System.out.print("Informe a coluna: ");

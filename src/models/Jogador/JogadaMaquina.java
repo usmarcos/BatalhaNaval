@@ -7,7 +7,7 @@ import java.util.Random;
 public class JogadaMaquina extends Tabuleiro {
 
     /**
-     * obtem o char com o valor da posição na horizontal
+     * obtém o char com o valor da posição na horizontal
      */
     public static char setLinha() {
         Random random = new Random();
@@ -18,7 +18,7 @@ public class JogadaMaquina extends Tabuleiro {
 
 
     /**
-     * obtem o char com o valor da posição na vertical
+     * obtém o char com o valor da posição na vertical
      */
     public static int setColuna() {
         Random random = new Random();

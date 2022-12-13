@@ -1,4 +1,4 @@
-package models;
+package enumeradores;
 
 public enum Marcacoes {
     /**
