@@ -35,7 +35,6 @@ public class Tabuleiro {
             //a cada passada gera uma posição aleatória para preencher uma coordenada na matriz
             linhaRandom = random.nextInt(9);
             colunaRandom = random.nextInt(9);
-
             if (tabuleiro[linhaRandom][colunaRandom] == Character.MIN_VALUE) {
                 tabuleiro[linhaRandom][colunaRandom] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
             } else {
@@ -45,9 +44,17 @@ public class Tabuleiro {
     }
 
     /**
+     * Retorna tabuleiro para comparar e identificar se existem navios iguais na mesma posição.
+     */
+    public char[][] getTabuleuiro() {
+        return tabuleiro;
+    }
+
+
+    /**
      * Método responsável por enviar a jogada convertendo o char enviado para int por conta da posição da matriz.
      */
-    public void setJogada(char linha, int coluna) {
+    public void setJogada(char linha, int coluna, char[][] humano, char[][] maquina) {
         //converte a coluna char para um INT para validar as posições da matriz
         switch (linha) {
             case 'A':
@@ -82,27 +89,33 @@ public class Tabuleiro {
                 break;
         }
         //enviando linha primeiro e depois coluna, pois é assim que uma matriz funciona, primeiro coluna e depois linha.
-        validaTiro(linha, coluna);
+        validaTiro(linha, coluna,humano, maquina);
     }
 
     /**
      * Atirar: (tiro certeiro, água, certeiro com navio posicionado e tiro na água com navio posicionado)
      */
-    private void validaTiro(int poiscaoLinha, int posicaoColuna) {
+    private void validaTiro(int posicaoLinha, int posicaoColuna,char[][] tabuleiroJogadorAtual, char[][] tabuleiroJogadorInimigo) {
         //validações dos tiros e preenchimento do campo na posição
-        if (tabuleiro[poiscaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
-            tabuleiro[poiscaoLinha][posicaoColuna] = Marcacoes.TIRO_CERTEIRO.getMarcacao();
-        } else if (tabuleiro[poiscaoLinha][posicaoColuna] == Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao()) {
-            tabuleiro[poiscaoLinha][posicaoColuna] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
-            //falta lógica para identificar se foi tiro na água com navio posicionado
-        } else if (tabuleiro[poiscaoLinha][posicaoColuna] == Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao()) {
-            tabuleiro[poiscaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao();
-        } else {
-            //caso não atenda nenhuma acima retorna tiro na água
-            tabuleiro[poiscaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA.getMarcacao();
+        if (tabuleiro[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
+            //se no tiro tiver um navio posicionado ele verifica se tem um navio posicionado nesta posição no tabuleiro do inimigo
+            if (tabuleiroJogadorAtual[posicaoLinha][posicaoColuna] == tabuleiroJogadorInimigo[posicaoLinha][posicaoColuna]){
+                //se tiver o mesmo preenchimento ele armazena marcação correspondente
+                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
+            }else {
+                //se não tiver ele armazena o tiro
+                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_CERTEIRO.getMarcacao();
+            }
+            //nesse caso se o jogador der um tiro ele verifica se no tabuleiro inimigo foi tiro na água
+        } else if (tabuleiro[posicaoLinha][posicaoColuna] == Character.MIN_VALUE) {
+            //se no tabuleiro do jogador atual tiver um navio posicionado ele coloca o n minúsculo
+            if(tabuleiroJogadorAtual[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()){
+                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao();
+            }
+            //se não tiver navio posicionado vira tiro na água
+            tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA.getMarcacao();
         }
     }
-
     /**
      * Imprime o tabuleiro em tela e deve ser enviado o enum do jogador correspondente ao objeto
      */

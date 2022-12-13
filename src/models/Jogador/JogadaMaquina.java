@@ -1,10 +1,8 @@
 package models.Jogador;
 
-import models.Tabuleiro;
-
 import java.util.Random;
 
-public class JogadaMaquina extends Tabuleiro {
+public class JogadaMaquina {
 
     /**
      * obtém o char com o valor da posição na horizontal
