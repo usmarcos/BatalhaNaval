@@ -1,8 +1,12 @@
 import enumeradores.Jogador;
+import enumeradores.Marcacoes;
 import models.Jogador.JogadaHumano;
 import models.Jogador.JogadaMaquina;
 import models.Tabuleiro;
 import utils.LeitorTeclado;
+
+import static models.Jogador.JogadaHumano.getColuna;
+import static models.Jogador.JogadaHumano.getLinha;
 
 public class BatalhaNaval {
     /**
@@ -45,6 +49,7 @@ public class BatalhaNaval {
 
         boolean ligado = true;
         menu();
+        boolean loop = true;
         int opcao = LeitorTeclado.getNumero("Digite uma das opções: ");
         switch (opcao){
             case 0:
@@ -52,13 +57,27 @@ public class BatalhaNaval {
                 ligado = false;
                 break;
             case 1:
-                //fazer depois
+                Tabuleiro computador1 = new Tabuleiro();
+                Tabuleiro humano1 = new Tabuleiro();
+                System.out.println("Este será o seu tabuleiro. Digite a posição dos navios:");
+                humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
+                humano1.preencherNaviosManualmente();
+                loop = true;
+                while (loop) {
+                    //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
+                    humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
+                    computador1.toString(Jogador.JOGADOR_MAQUINA.getJogador());
+                    //Jogada humano
+                    jogadaHumano(humano1, computador1);
+                    jogadaMaquina(computador1,humano1);
+                }
                 break;
             case 2:
                 Tabuleiro humano = new Tabuleiro();
+                humano.preencherNaviosTabuleiro();
                 Tabuleiro computador = new Tabuleiro();
                 System.out.println("Este será o seu tabuleiro");
-                boolean loop = true;
+                loop = true;
                 while (loop) {
                     //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
                     humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
@@ -84,7 +103,7 @@ public class BatalhaNaval {
     private static void jogadaHumano(Tabuleiro jogador, Tabuleiro inimigo){
         //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada (MELHORAR ESSA LÓGICA)
         try {
-            jogador.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), inimigo);
+            jogador.setJogada(getLinha(), JogadaHumano.getColuna(), inimigo);
         } catch (Exception e) {
             System.out.println("Posição já jogada anteriormente, insira uma nova posição");
             jogadaHumano(jogador, inimigo);

@@ -35,7 +35,7 @@ public class JogadaHumano {
             //verifica se foi número digitado
             try{
                 coluna = new Scanner(System.in).nextInt();
-            }catch (InputMismatchException e){
+            }catch (InputMismatchException | ArrayIndexOutOfBoundsException e){
                 System.out.print("Digite um valor de coluna válido (0, 1, 2, 3, 4, 5, 6, 7, 8, 9: ");
             }
             //verifica se foi um dos números da coluna

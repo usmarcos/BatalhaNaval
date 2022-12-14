@@ -4,6 +4,9 @@ import enumeradores.Marcacoes;
 
 import java.util.Random;
 
+import static models.Jogador.JogadaHumano.getColuna;
+import static models.Jogador.JogadaHumano.getLinha;
+
 public class Tabuleiro {
     private final String reset = "\u001B[0m";
     private final String cor_amarela = "\u001B[33m";
@@ -25,13 +28,12 @@ public class Tabuleiro {
      * Recebe o tamanho da linha e da coluna para criação de um novo tabuleiro
      */
     public Tabuleiro() {
-        preencherNaviosTabuleiro();
-    }
+            }
 
     /**
      * Preenche os navios randomicamente para iniciar a partida
      */
-    private void preencherNaviosTabuleiro() {
+    public void preencherNaviosTabuleiro() {
         Random random = new Random();
         int linhaRandom, colunaRandom;
         for (int i = 0; i < quantidadeNavios; i++) {
@@ -46,7 +48,20 @@ public class Tabuleiro {
         }
     }
 
-    /**
+    public void preencherNaviosManualmente() {
+        for (int k = 0; k < 10; k++) {
+            int linha = getLinha();
+            int coluna = getColuna();
+
+        if (tabuleiro[linha][coluna] == Character.MIN_VALUE) {
+            tabuleiro[linha][coluna] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
+        } else {
+            k--;
+        }
+    }
+}
+
+     /**
      * Método responsável por enviar a jogada convertendo o char enviado para int por conta da posição da matriz.
      * E validar as jogadas passando o tabuleiro do inimmigo.
      * Se tiver uma posição já jogada anteriormente vai retornar exceção
