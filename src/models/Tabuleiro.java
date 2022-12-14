@@ -121,10 +121,10 @@ public class Tabuleiro {
         int contJogadorUm = 0, contJogadorDois = 0;
         for (int linha = 0; linha < tabuleiro.length; linha++) {
             for (int coluna = 0; coluna < tabuleiro.length; coluna++) {
-                if (tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao()) {
+                if (tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao() || tabuleiro[linha][coluna] == Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao()) {
                     contJogadorUm++;
                 }
-                if (inimigo.tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao()) {
+                if (inimigo.tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao() || tabuleiro[linha][coluna] == Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao()) {
                     contJogadorDois++;
                 }
             }
