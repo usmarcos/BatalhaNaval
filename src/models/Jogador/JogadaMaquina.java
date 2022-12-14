@@ -4,7 +4,7 @@ import models.Tabuleiro;
 
 import java.util.Random;
 
-public class JogadaMaquina {
+public abstract class JogadaMaquina {
 
     /**
      * obtém o char com o valor da posição na horizontal

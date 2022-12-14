@@ -3,7 +3,7 @@ package utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class LeitorTeclado {
+public abstract class LeitorTeclado {
     public static int getNumero(String frase) {
         Scanner entrada = new Scanner(System.in);
         System.out.print(frase);

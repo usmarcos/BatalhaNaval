@@ -5,7 +5,7 @@ import models.Tabuleiro;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class JogadaHumano {
+public abstract class JogadaHumano {
     /**
      * obtém o char com o valor da posição na horizontal
      */
