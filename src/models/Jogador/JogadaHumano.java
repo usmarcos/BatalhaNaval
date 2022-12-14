@@ -16,7 +16,6 @@ public class JogadaHumano {
         while (controle) {
             //tpUpperCase converte o caracter digitado para maiúsculo sempre.
             linha = new Scanner(System.in).nextLine().toUpperCase();
-            // !falta implementar se caso seja digitado letras repetidas
             if (linha.equals("A")
                     || linha.equals("B")
                     || linha.equals("C")
