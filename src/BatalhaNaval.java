@@ -14,87 +14,65 @@ public class BatalhaNaval {
         System.out.println("▒█▀▀█ ░█▀▀█ ▀▀█▀▀ ░█▀▀█ ▒█░░░ ▒█░▒█ ░█▀▀█   ▒█▄░▒█ ░█▀▀█ ▒█░░▒█ ░█▀▀█ ▒█░░░ ");
         System.out.println("▒█▀▀▄ ▒█▄▄█ ░▒█░░ ▒█▄▄█ ▒█░░░ ▒█▀▀█ ▒█▄▄█   ▒█▒█▒█ ▒█▄▄█ ░▒█▒█░ ▒█▄▄█ ▒█░░░ ");
         System.out.println("▒█▄▄█ ▒█░▒█ ░▒█░░ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▒█░▒█   ▒█░░▀█ ▒█░▒█ ░░▀▄▀░ ▒█░▒█ ▒█▄▄█ ");
-
-        /**
-         * Lista do que falta implementar:
-         * 1 - Falta definir como funcionará o menu, se terá sequência e criar o método.
-         * 2 - Falta tratar as excessões caso digitado mais de uma letra ou mais de um número.
-         * 3 - Falta criar a lógia que dirá quem é o vencedor
-         * 4 - Lembrar que no final do jogo deve imprimir o vencedor e os dois tabuleiros (por isso já criei o envio do Enum
-         * para informar qual o jogador do objeto
-         */
-
-        /**
-         * Sempre que for enviar uma jogada envie também na chamada o tabuleiro do objeto do inimigo, seja
-         * o humano ou computador para ele poder fazer as devidas comparações
-         */
-
-//        // teste
-//        Tabuleiro humano = new Tabuleiro();
-//        Tabuleiro computador = new Tabuleiro();
-//
-//        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-//        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-//
-//        System.out.println("Tiro");
-//        humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), computador.getTabuleuiro());
-//        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da última jogada
-//        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-//        computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna(), humano.getTabuleuiro());
-//        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-
-        boolean ligado = true;
         menu();
-        int opcao = LeitorTeclado.getNumero("Digite uma das opções: ");
-        switch (opcao){
+    }
+
+    private static void menu() {
+        System.out.println("\nEscolha uma das opções abaixo:\n");
+        System.out.println("0 - Para Encerrar.");
+        System.out.println("1 - Iniciar um novo jogo escolhendo as posições dos navios.");
+        System.out.println("2 - Iniciar um novo jogo com as posições geradas automaticamente.");
+
+        int opcao = LeitorTeclado.getNumero("\nDigite uma das opções: ");
+        switch (opcao) {
             case 0:
-                System.out.println("O programa será finalizado.");
-                ligado = false;
+                System.out.println("\nO programa será finalizado.");
+                System.exit(1);
                 break;
             case 1:
-                //fazer depois
+                novoJogo('M');
                 break;
             case 2:
-                Tabuleiro humano = new Tabuleiro();
-                Tabuleiro computador = new Tabuleiro();
-                System.out.println("Este será o seu tabuleiro");
-                boolean loop = true;
-                while (loop) {
-                    //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
-                    humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                    computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-                    //Jogada humano
-                    jogadaHumano(humano, computador);
-                    jogadaMaquina(computador,humano);
-                }
-
+                novoJogo('A');
                 break;
             default:
                 System.out.println("Opação inválida. Tente novamente.");
                 break;
         }
+        System.out.println("");
+        menu();
     }
 
-    private static void menu(){
-        System.out.println("Escolha uma das opções abaixo.");
-        System.out.println("0 - Para Encerrar.");
-        System.out.println("1 - Iniciar um novo jogo escolhendo as posições dos navios.");
-        System.out.println("2 - Iniciar um novo jogo com as posições geradas automaticamente.");
-    }
-    private static void jogadaHumano(Tabuleiro jogador, Tabuleiro inimigo){
-        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada (MELHORAR ESSA LÓGICA)
-        try {
-            jogador.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), inimigo);
-        } catch (Exception e) {
-            System.out.println("Posição já jogada anteriormente, insira uma nova posição");
-            jogadaHumano(jogador, inimigo);
+    /**
+     * Realiza um novo jogo recebendo a descisão do jogador (se deseja que gere de forma automática ou manual
+     */
+    private static void novoJogo(char decisaoJogador) {
+        int cont = 0;
+        Tabuleiro humano = new Tabuleiro(decisaoJogador);
+        Tabuleiro maquina = new Tabuleiro('A');
+        System.out.println("\n\n------------------------ PARTIDA INICIADA ------------------------");
+        while (true) {
+            //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
+            humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+            //maquina.toString(Jogador.JOGADOR_MAQUINA.getJogador());
+            //Jogada humano
+            System.out.println("Jogada de número: " + ++cont);
+            JogadaHumano.jogadaHumano(humano, maquina);
+            //verifica se o humano venceu, se sim retorna false e finaliza o loop
+            if (humano.verificaGanhador(maquina)) {
+                System.out.println("\nNessa partida houveram "+ cont +" jogadas!");
+                break;
+            }
+            System.out.println("O computador fez a jogada de número: " + ++cont);
+            JogadaMaquina.jogadaMaquina(maquina, humano);
+            //verifica se a máquina venceu, se sim retorna false e finaliza o loop
+            if (maquina.verificaGanhador(humano)) {
+                System.out.println("\nNessa partida houveram "+ cont +" jogadas!");
+                break;
+            }
         }
-    }    private static void jogadaMaquina(Tabuleiro jogador, Tabuleiro inimigo){
-        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada até mesmo pra máquina (MELHORAR ESSA LÓGICA)
-        try {
-            jogador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna(), inimigo);
-        } catch (Exception e) {
-            jogadaHumano(jogador, inimigo);
-        }
+        System.out.println("\n----------------------- TABULEIROS FINAIS ------------------------");
+        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+        maquina.toString(Jogador.JOGADOR_MAQUINA.getJogador());
     }
 }

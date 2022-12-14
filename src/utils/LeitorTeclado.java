@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class LeitorTeclado {
     public static int getNumero(String frase) {
         Scanner entrada = new Scanner(System.in);
-        System.out.println(frase);
+        System.out.print(frase);
         try {
             return entrada.nextInt();
         } catch (InputMismatchException e) {
