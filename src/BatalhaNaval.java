@@ -1,5 +1,4 @@
 import enumeradores.Jogador;
-import enumeradores.Marcacoes;
 import models.Jogador.JogadaHumano;
 import models.Jogador.JogadaMaquina;
 import models.Tabuleiro;
@@ -21,8 +20,8 @@ public class BatalhaNaval {
 
         /**
          * Lista do que falta implementar:
-         * 1 - Falta definir como funcionará o menu, se terá sequência e criar o método.
-         * 2 - Falta tratar as excessões caso digitado mais de uma letra ou mais de um número.
+         *
+         * 1 - Falta tratar as excessões caso digitado mais de uma letra ou mais de um número.
          * 3 - Falta criar a lógia que dirá quem é o vencedor
          * 4 - Lembrar que no final do jogo deve imprimir o vencedor e os dois tabuleiros (por isso já criei o envio do Enum
          * para informar qual o jogador do objeto
@@ -33,65 +32,55 @@ public class BatalhaNaval {
          * o humano ou computador para ele poder fazer as devidas comparações
          */
 
-//        // teste
-//        Tabuleiro humano = new Tabuleiro();
-//        Tabuleiro computador = new Tabuleiro();
-//
-//        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-//        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-//
-//        System.out.println("Tiro");
-//        humano.setJogada(JogadaHumano.getLinha(), JogadaHumano.getColuna(), computador.getTabuleuiro());
-//        //pode imprimir direto ou alterar a classe set jogada para imprimir sempre depois da última jogada
-//        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-//        computador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna(), humano.getTabuleuiro());
-//        computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
 
-        boolean ligado = true;
         menu();
         boolean loop = true;
-        int opcao = LeitorTeclado.getNumero("Digite uma das opções: ");
-        switch (opcao){
-            case 0:
-                System.out.println("O programa será finalizado.");
-                ligado = false;
-                break;
-            case 1:
-                Tabuleiro computador1 = new Tabuleiro();
-                Tabuleiro humano1 = new Tabuleiro();
-                System.out.println("Este será o seu tabuleiro. Digite a posição dos navios:");
-                humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                humano1.preencherNaviosManualmente();
-                loop = true;
-                while (loop) {
-                    //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
+        boolean continua = true;
+        do {
+            int opcao = LeitorTeclado.getNumero("Digite uma das opções: ");
+            switch (opcao) {
+                case 0:
+                    continua = false;
+                    System.out.println("O programa será finalizado.");
+                    break;
+                case 1:
+                    Tabuleiro computador1 = new Tabuleiro();
+                    Tabuleiro humano1 = new Tabuleiro();
+                    System.out.println("Este será o seu tabuleiro. Digite a posição dos navios:");
                     humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                    computador1.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-                    //Jogada humano
-                    jogadaHumano(humano1, computador1);
-                    jogadaMaquina(computador1,humano1);
-                }
-                break;
-            case 2:
-                Tabuleiro humano = new Tabuleiro();
-                humano.preencherNaviosTabuleiro();
-                Tabuleiro computador = new Tabuleiro();
-                System.out.println("Este será o seu tabuleiro");
-                loop = true;
-                while (loop) {
-                    //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
-                    humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                    computador.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-                    //Jogada humano
-                    jogadaHumano(humano, computador);
-                    jogadaMaquina(computador,humano);
-                }
+                    humano1.preencherNaviosManualmente();
+                    loop = true;
+                    while (loop) {
+                        //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
+                        humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
+                        computador1.toString(Jogador.JOGADOR_MAQUINA.getJogador());
+                        //Jogada humano
+                        jogadaHumano(humano1, computador1);
+                        jogadaMaquina(computador1, humano1);
+                    }
+                    break;
+                case 2:
+                    Tabuleiro humano = new Tabuleiro();
+                    humano.preencherNaviosTabuleiro();
+                    Tabuleiro computador = new Tabuleiro();
+                    System.out.println("Este será o seu tabuleiro");
+                    loop = true;
+                    while (loop) {
+                        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+                        //Jogada humano
+                        jogadaHumano(humano, computador);
+                        jogadaMaquina(computador, humano);
 
-                break;
-            default:
-                System.out.println("Opação inválida. Tente novamente.");
-                break;
-        }
+                    }
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    continua = true;
+                    break;
+
+
+            }
+        } while (continua);
     }
 
     private static void menu(){

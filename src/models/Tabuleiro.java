@@ -107,7 +107,7 @@ public class Tabuleiro {
                 || tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao()) {
             throw new RuntimeException();
         }
-        //enviando linha primeiro e depois coluna, pois é assim que uma matriz funciona, primeiro coluna e depois linha.
+        //enviando linha primeiro e depois coluna, pois é assim que uma matriz funciona, primeiro linha e depois coluna.
         validaTiro(linha, coluna, inimigo);
     }
 
