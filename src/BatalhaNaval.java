@@ -1,11 +1,4 @@
-import enumeradores.Jogador;
-import models.Jogador.JogadaHumano;
-import models.Jogador.JogadaMaquina;
-import models.Tabuleiro;
-import utils.LeitorTeclado;
-
-import static models.Jogador.JogadaHumano.getColuna;
-import static models.Jogador.JogadaHumano.getLinha;
+import processos.Batalha;
 
 public class BatalhaNaval {
     /**
@@ -32,77 +25,6 @@ public class BatalhaNaval {
          * o humano ou computador para ele poder fazer as devidas comparações
          */
 
-
-        menu();
-        boolean loop = true;
-        boolean continua = true;
-        do {
-            int opcao = LeitorTeclado.getNumero("Digite uma das opções: ");
-            switch (opcao) {
-                case 0:
-                    continua = false;
-                    System.out.println("O programa será finalizado.");
-                    break;
-                case 1:
-                    Tabuleiro computador1 = new Tabuleiro();
-                    Tabuleiro humano1 = new Tabuleiro();
-                    System.out.println("Este será o seu tabuleiro. Digite a posição dos navios:");
-                    humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                    humano1.preencherNaviosManualmente();
-                    loop = true;
-                    while (loop) {
-                        //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
-                        humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                        computador1.toString(Jogador.JOGADOR_MAQUINA.getJogador());
-                        //Jogada humano
-                        jogadaHumano(humano1, computador1);
-                        jogadaMaquina(computador1, humano1);
-                    }
-                    break;
-                case 2:
-                    Tabuleiro humano = new Tabuleiro();
-                    humano.preencherNaviosTabuleiro();
-                    Tabuleiro computador = new Tabuleiro();
-                    System.out.println("Este será o seu tabuleiro");
-                    loop = true;
-                    while (loop) {
-                        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                        //Jogada humano
-                        jogadaHumano(humano, computador);
-                        jogadaMaquina(computador, humano);
-
-                    }
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
-                    continua = true;
-                    break;
-
-
-            }
-        } while (continua);
-    }
-
-    private static void menu(){
-        System.out.println("Escolha uma das opções abaixo.");
-        System.out.println("0 - Para Encerrar.");
-        System.out.println("1 - Iniciar um novo jogo escolhendo as posições dos navios.");
-        System.out.println("2 - Iniciar um novo jogo com as posições geradas automaticamente.");
-    }
-    private static void jogadaHumano(Tabuleiro jogador, Tabuleiro inimigo){
-        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada (MELHORAR ESSA LÓGICA)
-        try {
-            jogador.setJogada(getLinha(), JogadaHumano.getColuna(), inimigo);
-        } catch (Exception e) {
-            System.out.println("Posição já jogada anteriormente, insira uma nova posição");
-            jogadaHumano(jogador, inimigo);
-        }
-    }    private static void jogadaMaquina(Tabuleiro jogador, Tabuleiro inimigo){
-        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada até mesmo pra máquina (MELHORAR ESSA LÓGICA)
-        try {
-            jogador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna(), inimigo);
-        } catch (Exception e) {
-            jogadaHumano(jogador, inimigo);
-        }
+        Batalha.executar();
     }
 }

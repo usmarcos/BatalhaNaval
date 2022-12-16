@@ -20,7 +20,7 @@ public class Tabuleiro {
     private final String titulo = "                         JOGADOR ";
     private int tamLinha = 10;
     private int tamColuna = 10;
-    private int quantidadeNavios = 10;
+    public int quantidadeNavios = 10;
     protected char[][] tabuleiro = new char[tamLinha][tamColuna];
 
 
@@ -33,7 +33,7 @@ public class Tabuleiro {
     /**
      * Preenche os navios randomicamente para iniciar a partida
      */
-    public void preencherNaviosTabuleiro() {
+    public void preencherNaviosRandom() {
         Random random = new Random();
         int linhaRandom, colunaRandom;
         for (int i = 0; i < quantidadeNavios; i++) {
@@ -48,7 +48,12 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Preenche os navios manualmente para iniciar a partida
+     */
     public void preencherNaviosManualmente() {
+        System.out.println("Este será o seu tabuleiro. Digite a posição dos navios:");
+
         for (int k = 0; k < 10; k++) {
             int linha = getLinha();
             int coluna = getColuna();
