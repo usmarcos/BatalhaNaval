@@ -1,4 +1,4 @@
-import processos.Batalha;
+import process.Batalha;
 
 public class BatalhaNaval {
     /**

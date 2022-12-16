@@ -1,13 +1,12 @@
-package processos;
+package process;
 
 import enumeradores.Jogador;
-import models.Jogador.JogadaMaquina;
 import models.Tabuleiro;
 import utils.LeitorTeclado;
 import utils.MenuInicial;
 
-import static models.Jogador.JogadaHumano.getColuna;
-import static models.Jogador.JogadaHumano.getLinha;
+import static process.JogadaHumano.getColuna;
+import static process.JogadaHumano.getLinha;
 
 public class Batalha {
 

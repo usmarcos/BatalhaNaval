@@ -1,4 +1,4 @@
-package models.Jogador;
+package process;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -21,30 +21,33 @@ public class JogadaHumano {
                 System.out.print("Digite um valor de linha válido (A, B, C, D, E, F, G, H ou I: ");
             }
         }
+
         return linha;
+
     }
 
     /**
      * obtém o char com o valor da posição na vertical
      */
     public static int getColuna() {
-        int coluna = 0;
+        int coluna = -1;
         boolean controle = true;
         System.out.print("Informe a coluna: ");
-        while (controle){
+        while (controle) {
             //verifica se foi número digitado
-            try{
+            try {
                 coluna = new Scanner(System.in).nextInt();
-            }catch (InputMismatchException | ArrayIndexOutOfBoundsException e){
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                 System.out.print("Digite um valor de coluna válido (0, 1, 2, 3, 4, 5, 6, 7, 8, 9: ");
+                controle = true;
             }
             //verifica se foi um dos números da coluna
             if (coluna == 0 || coluna == 1 || coluna == 2 || coluna == 3 || coluna == 4 || coluna == 5 || coluna == 6 || coluna == 7 || coluna == 8 || coluna == 9) {
                 controle = false;
-            } else {
-                System.out.print("Digite um valor de coluna válido (0, 1, 2, 3, 4, 5, 6, 7, 8, 9: ");
+
             }
         }
+
         return coluna;
     }
 }

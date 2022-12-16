@@ -1,11 +1,10 @@
 package models;
 
+import enumeradores.Jogador;
 import enumeradores.Marcacoes;
-
+import process.JogadaHumano;
+import utils.ConversorCharInt;
 import java.util.Random;
-
-import static models.Jogador.JogadaHumano.getColuna;
-import static models.Jogador.JogadaHumano.getLinha;
 
 public class Tabuleiro {
     private final String reset = "\u001B[0m";
@@ -23,16 +22,12 @@ public class Tabuleiro {
     public int quantidadeNavios = 10;
     protected char[][] tabuleiro = new char[tamLinha][tamColuna];
 
-
     /**
      * Recebe o tamanho da linha e da coluna para criação de um novo tabuleiro
      */
     public Tabuleiro() {
             }
 
-    /**
-     * Preenche os navios randomicamente para iniciar a partida
-     */
     public void preencherNaviosRandom() {
         Random random = new Random();
         int linhaRandom, colunaRandom;
@@ -48,16 +43,13 @@ public class Tabuleiro {
         }
     }
 
-    /**
-     * Preenche os navios manualmente para iniciar a partida
-     */
     public void preencherNaviosManualmente() {
         System.out.println("Este será o seu tabuleiro. Digite a posição dos navios:");
-
-        for (int k = 0; k < 10; k++) {
-            int linha = getLinha();
-            int coluna = getColuna();
-
+        int linha, coluna;
+        for (int k = 0; k < quantidadeNavios; k++) {
+            toString(Jogador.JOGADOR_HUMANO.getJogador());
+            linha = ConversorCharInt.converter(JogadaHumano.getLinha());
+            coluna = JogadaHumano.getColuna();
         if (tabuleiro[linha][coluna] == Character.MIN_VALUE) {
             tabuleiro[linha][coluna] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
         } else {
@@ -67,44 +59,11 @@ public class Tabuleiro {
 }
 
      /**
-     * Método responsável por enviar a jogada convertendo o char enviado para int por conta da posição da matriz.
      * E validar as jogadas passando o tabuleiro do inimmigo.
      * Se tiver uma posição já jogada anteriormente vai retornar exceção
      */
-    public void setJogada(char linha, int coluna, Tabuleiro inimigo) {
-        //converte a coluna char para um INT para validar as posições da matriz
-        switch (linha) {
-            case 'A':
-                linha = (int) 0;
-                break;
-            case 'B':
-                linha = (int) 1;
-                break;
-            case 'C':
-                linha = (int) 2;
-                break;
-            case 'D':
-                linha = (int) 3;
-                break;
-            case 'E':
-                linha = (int) 4;
-                break;
-            case 'F':
-                linha = (int) 5;
-                break;
-            case 'G':
-                linha = (int) 6;
-                break;
-            case 'H':
-                linha = (int) 7;
-                break;
-            case 'I':
-                linha = (int) 8;
-                break;
-            case 'J':
-                linha = (int) 9;
-                break;
-        }
+    public void setJogada(int linha, int coluna, Tabuleiro inimigo) {
+
         //valida se jogada já foi feita e se tiver sido vai retornar uma exceção
         if (tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao()
                 || tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA.getMarcacao()
