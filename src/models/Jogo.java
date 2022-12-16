@@ -51,7 +51,7 @@ public class Jogo {
         while (true) {
             //imprimir os dois tabuleiros (o máquina apenas para teste, depois será removido)
             humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-            maquina.toString(Jogador.JOGADOR_MAQUINA.getJogador());
+            //maquina.toString(Jogador.JOGADOR_MAQUINA.getJogador());
             //Jogada humano
             System.out.println("Jogada de número: " + ++cont);
             JogadaHumano.jogadaHumano(humano, maquina);
