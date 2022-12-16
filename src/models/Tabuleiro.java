@@ -18,7 +18,7 @@ public class Tabuleiro {
     private final String titulo = "                         JOGADOR ";
     private int tamLinha = 10;
     private int tamColuna = 10;
-    private int quantidadeNavios = 10;
+    private int quantidadeNavios = 2;
     protected char[][] tabuleiro = new char[tamLinha][tamColuna];
 
     /**
