@@ -3,7 +3,7 @@ package models;
 import enumeradores.Jogador;
 
 public class Placar {
-    static String historico[] = new String[10];
+    static String historico[] = new String[50];
 
     private static void placar(Jogador vencedor) {
         for (int i = 0; i < historico.length; i++) {
