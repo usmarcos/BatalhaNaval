@@ -3,10 +3,12 @@ package utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class LeitorTeclado {
+
+public abstract class LeitorTeclado {
+    static Scanner entrada = new Scanner(System.in);
     public static int getNumero(String frase) {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println(frase);
+
+        System.out.print(frase);
         try {
             return entrada.nextInt();
         } catch (InputMismatchException e) {
@@ -14,4 +16,6 @@ public class LeitorTeclado {
             return getNumero(frase);
         }
     }
+
+
 }
