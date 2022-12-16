@@ -72,7 +72,6 @@ public class Jogo {
         humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
         maquina.toString(Jogador.JOGADOR_MAQUINA.getJogador());
         Placar.imprimePlacar(vencedor);
-
     }
 
     /**
