@@ -1,11 +1,12 @@
-package models.Jogador;
+package models.jogador;
 
 import models.Tabuleiro;
 
 import java.util.Random;
 
-public abstract class JogadaMaquina {
+public final class JogadaMaquina {
 
+    private JogadaMaquina(){}
     /**
      * obtém o char com o valor da posição na horizontal
      */

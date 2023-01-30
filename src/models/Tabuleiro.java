@@ -2,7 +2,7 @@ package models;
 
 import enumeradores.Jogador;
 import enumeradores.Marcacoes;
-import models.Jogador.JogadaHumano;
+import models.jogador.JogadaHumano;
 
 import java.util.Random;
 

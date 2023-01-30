@@ -1,8 +1,8 @@
 package models;
 
 import enumeradores.Jogador;
-import models.Jogador.JogadaHumano;
-import models.Jogador.JogadaMaquina;
+import models.jogador.JogadaHumano;
+import models.jogador.JogadaMaquina;
 import utils.LeitorTeclado;
 
 public class Jogo {

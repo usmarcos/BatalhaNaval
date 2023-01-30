@@ -1,11 +1,13 @@
-package models.Jogador;
+package models.jogador;
 
 import models.Tabuleiro;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public abstract class JogadaHumano {
+public final class JogadaHumano {
+    private JogadaHumano(){}
+
     /**
      * obtém o char com o valor da posição na horizontal
      */
