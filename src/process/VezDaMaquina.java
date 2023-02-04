@@ -4,7 +4,7 @@ import utils.ConversorCharInt;
 
 import java.util.Random;
 
-public class JogadaMaquina {
+public class VezDaMaquina {
 
     /**
      * obtém o char com o valor da posição na horizontal

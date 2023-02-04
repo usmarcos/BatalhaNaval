@@ -2,7 +2,7 @@ package models;
 
 import enumeradores.Jogador;
 import enumeradores.Marcacoes;
-import process.JogadaHumano;
+import process.VezDoHumano;
 import utils.ConversorCharInt;
 import java.util.Random;
 
@@ -20,7 +20,7 @@ public class Tabuleiro {
     private int tamLinha = 10;
     private int tamColuna = 10;
     public int quantidadeNavios = 10;
-    protected char[][] tabuleiro = new char[tamLinha][tamColuna];
+    public char[][] tabuleiro = new char[tamLinha][tamColuna];
 
     /**
      * Recebe o tamanho da linha e da coluna para criação de um novo tabuleiro
@@ -48,8 +48,8 @@ public class Tabuleiro {
         int linha, coluna;
         for (int k = 0; k < quantidadeNavios; k++) {
             toString(Jogador.JOGADOR_HUMANO.getJogador());
-            linha = ConversorCharInt.converter(JogadaHumano.getLinha());
-            coluna = JogadaHumano.getColuna();
+            linha = ConversorCharInt.converter(VezDoHumano.getLinha());
+            coluna = VezDoHumano.getColuna();
         if (tabuleiro[linha][coluna] == Character.MIN_VALUE) {
             tabuleiro[linha][coluna] = Marcacoes.NAVIO_POSICIONADO.getMarcacao();
         } else {
@@ -57,49 +57,6 @@ public class Tabuleiro {
         }
     }
 }
-
-     /**
-     * E validar as jogadas passando o tabuleiro do inimmigo.
-     * Se tiver uma posição já jogada anteriormente vai retornar exceção
-     */
-    public void setJogada(int linha, int coluna, Tabuleiro inimigo) {
-
-        //valida se jogada já foi feita e se tiver sido vai retornar uma exceção
-        if (tabuleiro[linha][coluna] == Marcacoes.TIRO_CERTEIRO.getMarcacao()
-                || tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA.getMarcacao()
-                || tabuleiro[linha][coluna] == Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao()
-                || tabuleiro[linha][coluna] == Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao()) {
-            throw new RuntimeException();
-        }
-        //enviando linha primeiro e depois coluna, pois é assim que uma matriz funciona, primeiro linha e depois coluna.
-        validaTiro(linha, coluna, inimigo);
-    }
-
-    /**
-     * Atirar: (tiro certeiro, água, certeiro com navio posicionado e tiro na água com navio posicionado)
-     */
-    private void validaTiro(int posicaoLinha, int posicaoColuna, Tabuleiro inimigo) {
-        //validações dos tiros e preenchimento do campo na posição
-        if (inimigo.tabuleiro[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
-            //se no tiro tiver um navio posicionado ele verifica se tem um navio posicionado nesta posição no tabuleiro do inimigo com relação ao do atual
-            if (inimigo.tabuleiro[posicaoLinha][posicaoColuna] == tabuleiro[posicaoLinha][posicaoColuna]) {
-                //se tiver o mesmo preenchimento ele armazena marcação correspondente
-                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_NAVIO_POSICIONADO.getMarcacao();
-            } else {
-                //se não tiver ele armazena o tiro
-                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_CERTEIRO.getMarcacao();
-            }
-            //nesse caso se o jogador der um tiro ele verifica se no tabuleiro inimigo foi tiro na água
-        } else if (inimigo.tabuleiro[posicaoLinha][posicaoColuna] == Character.MIN_VALUE) {
-            //se no tabuleiro do jogador atual tiver um navio posicionado ele coloca o n minúsculo
-            if (tabuleiro[posicaoLinha][posicaoColuna] == Marcacoes.NAVIO_POSICIONADO.getMarcacao()) {
-                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA_NAVIO_POSICIONADO.getMarcacao();
-            } else {
-                //se não tiver navio posicionado vira tiro na água
-                tabuleiro[posicaoLinha][posicaoColuna] = Marcacoes.TIRO_AGUA.getMarcacao();
-            }
-        }
-    }
     /**
      * Imprime o tabuleiro em tela e deve ser enviado o enum do jogador correspondente ao objeto
      */

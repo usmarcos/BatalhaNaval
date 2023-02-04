@@ -5,8 +5,8 @@ import models.Tabuleiro;
 import utils.LeitorTeclado;
 import utils.MenuInicial;
 
-import static process.JogadaHumano.getColuna;
-import static process.JogadaHumano.getLinha;
+import static process.VezDoHumano.getColuna;
+import static process.VezDoHumano.getLinha;
 
 public class Batalha {
 
@@ -34,11 +34,12 @@ public class Batalha {
                         humano1.toString(Jogador.JOGADOR_HUMANO.getJogador());
                         computador1.toString(Jogador.JOGADOR_MAQUINA.getJogador());
                         //Jogada humano
-                        jogadaHumano(humano1, computador1);
-                        jogadaMaquina(computador1, humano1);
+                        //jogadaHumano(humano1, computador1);
+                        //jogadaMaquina(computador1, humano1);
                     }
                     break;
                 case 2:
+                    int linha, coluna, pontosHumano = 0, pontosMaquina = 0;
                     Tabuleiro humano = new Tabuleiro();
                     humano.preencherNaviosRandom();
                     Tabuleiro computador = new Tabuleiro();
@@ -46,39 +47,39 @@ public class Batalha {
                     System.out.println("Este será o seu tabuleiro");
                     loop = true;
                     while (loop) {
-                        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
-                        //Jogada humano
-                        jogadaHumano(humano, computador);
-                        jogadaMaquina(computador, humano);
 
+                        humano.toString(Jogador.JOGADOR_HUMANO.getJogador());
+
+                        //Jogada humano
+                        linha = VezDoHumano.getLinha();
+                        coluna = VezDoHumano.getColuna();
+                        pontosHumano += Jogada(int linha; int coluna; char[][] computador);
+
+                        //Jogada máquina
+                        linha = VezDaMaquina.setLinha();
+                        coluna = VezDaMaquina.setColuna();
+                        pontosMaquina += Jogada(int linha; int coluna; char[][] humano);
+
+                        //jogadaHumano(humano, computador);
+                        //jogadaMaquina(computador, humano);
+
+                        if (pontosMaquina == 10) {
+                            loop = false;
+                            System.out.println("Máquina Venceu!");
+                        }
+                        if (pontosHumano == 10) {
+                            loop = false;
+                            System.out.println("Máquina Venceu!");
+                        }
                     }
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
                     continua = true;
                     break;
-
-
             }
         } while (continua);
     }
 
-
-    private static void jogadaHumano(Tabuleiro jogador, Tabuleiro inimigo){
-        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada (MELHORAR ESSA LÓGICA)
-        try {
-            jogador.setJogada(getLinha(), getColuna(), inimigo);
-        } catch (Exception e) {
-            System.out.println("Posição já jogada anteriormente, insira uma nova posição");
-            jogadaHumano(jogador, inimigo);
-        }
-    }    private static void jogadaMaquina(Tabuleiro jogador, Tabuleiro inimigo){
-        //try, pois se já tiver preenchido a jogada vai retornar exceção. Se retornar vai pedir nova jogada até mesmo pra máquina (MELHORAR ESSA LÓGICA)
-        try {
-            jogador.setJogada(JogadaMaquina.setLinha(), JogadaMaquina.setColuna(), inimigo);
-        } catch (Exception e) {
-            jogadaHumano(jogador, inimigo);
-        }
-    }
 
 }

@@ -3,7 +3,7 @@ package process;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class JogadaHumano {
+public class VezDoHumano {
     /**
      * obtém o char com o valor da posição na horizontal
      */
